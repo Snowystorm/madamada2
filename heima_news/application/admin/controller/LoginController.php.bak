@@ -1,0 +1,40 @@
+<?php
+
+namespace app\admin\controller;
+
+use think\Controller;
+
+class LoginController extends Controller {
+    public function index() {
+        return $this->fetch();
+    }
+
+    public function login() {
+//        $username = input('username');
+//        $password = input('password');
+        $data=input();
+//        var_dump($data['username']);exit;
+        $rule=[
+            'username|用户名'=>'require|max:10|min:5',
+            'password|密码'=>'require'
+        ];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            $this -> error($res);exit;
+        }
+
+        $loginKey = 'user:' . $data['username'];
+        $redis = new \Redis();
+        $redis->connect(2,'123.56.53.80', 6379, 10);
+        $redis->auth('madamada');
+        if (!$redis->exists($loginKey)) {
+            return $this->error('登录失败');
+        }
+        $pwd = $redis->get($loginKey);
+        if ($pwd != $data['password']) {
+            return $this->error('登录失败');
+        }
+        session('admin.user',$data['username']);
+        return $this->success('登录成功', url('admin/news/index'));
+    }
+}
