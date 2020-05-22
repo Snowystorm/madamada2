@@ -12,6 +12,8 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    // 分页数量
+    'pagesize' => 10,
 
     'name' => env('APP_NAME', 'Laravel'),
 
@@ -66,8 +68,9 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
-    'timezone' => 'UTC',
+    // 时区
+    #'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -79,8 +82,9 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
-    'locale' => 'en',
+    # 本地化配置   resources/lang/目录名称
+    #'locale' => 'en',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -136,6 +140,12 @@ return [
 
     'providers' => [
 
+        // 验证码
+        Mews\Captcha\CaptchaServiceProvider::class,
+
+        // ide工具
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         /*
          * Laravel Framework Service Providers...
          */
@@ -190,6 +200,11 @@ return [
 
     'aliases' => [
 
+        // 验证码
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        // Debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -213,7 +228,7 @@ return [
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        'Redis' => Illuminate\Support\Facades\Redis::class,
+        'Predis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,

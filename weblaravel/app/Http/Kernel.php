@@ -4,14 +4,14 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
-{
+class Kernel extends HttpKernel {
     /**
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
      *
      * @var array
+     * 注册全局中间件
      */
     protected $middleware = [
         \App\Http\Middleware\CheckForMaintenanceMode::class,
@@ -19,6 +19,9 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+
+        // 自定义的中间件
+        #\App\Http\Middleware\CheckLogin::class
     ];
 
     /**
@@ -49,6 +52,8 @@ class Kernel extends HttpKernel
      * These middleware may be assigned to groups or used individually.
      *
      * @var array
+     *
+     * 路由中间件
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -60,6 +65,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // 自定义的中间件
+        'checklogin' => \App\Http\Middleware\CheckLogin::class,
     ];
 
     /**

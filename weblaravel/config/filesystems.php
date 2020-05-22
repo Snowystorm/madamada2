@@ -47,6 +47,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        // 个人头像
+        'avatar' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+        ],
 
         'public' => [
             'driver' => 'local',
